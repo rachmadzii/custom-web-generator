@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Karla:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   CUSTOM SCROLLBAR (vertikal + horizontal)
+   Scrollbar bukan bagian dari CSS keempat tema — tidak ada satu pun aturan
+   ::-webkit-scrollbar di file aslinya — jadi ini tidak menimpa/mengubah desain
+   tema mana pun. Aturan ini hidup di level dokumen sebagai chrome aplikasi.
+   ============================================================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.45) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 0.85),
+    rgba(100, 116, 139, 0.85)
+  );
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(100, 116, 139, 1),
+    rgba(71, 85, 105, 1)
+  );
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, rgba(71, 85, 105, 1), rgba(51, 65, 85, 1));
+  background-clip: padding-box;
+}
+
+/* thumb horizontal diberi gradien arah mendatar */
+::-webkit-scrollbar-thumb:horizontal {
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.85),
+    rgba(100, 116, 139, 0.85)
+  );
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(100, 116, 139, 1),
+    rgba(71, 85, 105, 1)
+  );
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* varian tipis untuk panel di dalam builder */
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb {
+  border-width: 2px;
+}
+
+/* =============================================================================
+   UI BUILDER
+   ============================================================================= */
+@layer base {
+  body {
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply block text-xs font-medium text-slate-500 mb-1.5;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800
+           outline-none transition
+           placeholder:text-slate-400
+           focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm sm:p-5;
+  }
+
+  .panel-title {
+    @apply mb-4 flex items-center gap-2 text-sm font-semibold text-slate-700;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium
+           transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-950;
+  }
+
+  .btn-accent {
+    @apply btn bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm
+           hover:from-indigo-600 hover:to-violet-600;
+  }
+
+  .btn-ghost {
+    @apply btn border border-slate-200 bg-white text-slate-700 hover:bg-slate-50;
+  }
+
+  .btn-icon {
+    @apply inline-flex items-center justify-center rounded-lg p-2 text-slate-400 transition
+           hover:bg-slate-100 hover:text-slate-600;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition;
+  }
+}
+
+/* =============================================================================
+   Cegah auto-zoom iOS saat input difokuskan: Safari melakukan zoom kalau
+   font-size kontrol form di bawah 16px.
+
+   Sengaja ditulis di luar @layer. Deklarasi tanpa layer menang atas semua
+   deklarasi berlayer, jadi aturan ini mengalahkan .field-input (text-sm = 14px)
+   di @layer components tanpa perlu !important.
+   ============================================================================= */
+@media (max-width: 767px) {
+  .field-input,
+  input[type='text'],
+  input[type='file'],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}

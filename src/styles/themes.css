@@ -1,0 +1,1248 @@
+/* =============================================================================
+   CSS KEEMPAT TEMA — SALINAN VERBATIM DARI PROJECT ASLINYA
+   -----------------------------------------------------------------------------
+   Aturan yang saya pegang di file ini:
+   1. Tidak ada satu pun nilai deklarasi yang diubah, ditambah, atau dihapus.
+   2. Tidak ada media query baru. Breakpoint persis seperti aslinya.
+   3. Yang berubah HANYA dua hal, murni supaya 4 stylesheet bisa hidup
+      berdampingan dalam satu aplikasi:
+        a. Setiap selector diberi prefix .theme-<nama> (scoping).
+           Tanpa ini, .cloud / .photo-image / .letter-section / .subtitle
+           saling menimpa antar tema.
+        b. Nama @keyframes diberi suffix -<nama tema>.
+           Tanpa ini, `float` milik Ocean dan `float` milik Sunset bertabrakan
+           (keyframes bersifat global, yang terakhir menang).
+      Keduanya tidak mengubah tampilan sama sekali.
+   4. Deklarasi `body` dan wrapper terluar asli digabung ke selector
+      .theme-<nama> karena root <div> tema menggantikan peran <body>.
+   ============================================================================= */
+
+/* =============================================================================
+   THEME: OCEAN
+   Sumber: project-aca-done/src/index.css
+   ============================================================================= */
+.theme-ocean {
+  font-family: 'Poppins', sans-serif;
+}
+
+.theme-ocean .font-serif {
+  font-family: 'Crimson Text', serif;
+}
+
+.theme-ocean .text-coral-400 {
+  color: #f8a89a;
+}
+
+.theme-ocean .text-coral-500 {
+  color: #f58776;
+}
+
+.theme-ocean .from-peach-50 {
+  --tw-gradient-from: #fef3ef;
+}
+
+.theme-ocean .cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 100px;
+  opacity: 0.8;
+  filter: blur(8px);
+}
+
+.theme-ocean .cloud-1 {
+  width: 200px;
+  height: 60px;
+  top: 10%;
+  animation: float-ocean 25s infinite ease-in-out;
+}
+
+.theme-ocean .cloud-2 {
+  width: 150px;
+  height: 50px;
+  top: 25%;
+  animation: float-ocean 30s infinite ease-in-out 5s;
+}
+
+.theme-ocean .cloud-3 {
+  width: 180px;
+  height: 55px;
+  top: 40%;
+  animation: float-ocean 28s infinite ease-in-out 10s;
+}
+
+@keyframes float-ocean {
+  0%,
+  100% {
+    transform: translateX(-10vw);
+  }
+  50% {
+    transform: translateX(110vw);
+  }
+}
+
+.theme-ocean .wave-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.theme-ocean .waves {
+  width: 100%;
+  height: 100%;
+}
+
+.theme-ocean .wave-parallax use {
+  animation: wave-move-ocean 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.theme-ocean .wave-parallax use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.theme-ocean .wave-parallax use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.theme-ocean .wave-parallax use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.theme-ocean .wave-parallax use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes wave-move-ocean {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+.theme-ocean .sparkles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.theme-ocean .sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 223, 138, 0.9) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  border-radius: 50%;
+  animation: sparkle-twinkle-ocean 4s infinite ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 223, 138, 0.8);
+}
+
+@keyframes sparkle-twinkle-ocean {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.theme-ocean .animate-fade-in {
+  animation: fade-in-ocean 1.5s ease-out forwards;
+}
+
+@keyframes fade-in-ocean {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-ocean .animate-slide-up {
+  animation: slide-up-ocean 1s ease-out forwards;
+}
+
+@keyframes slide-up-ocean {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-ocean .prose p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #334155;
+}
+
+.theme-ocean .prose .text-xl {
+  line-height: 1.6;
+}
+
+/* =============================================================================
+   THEME: SUNSET
+   Sumber: project-aren-done/src/sunset.css
+   Catatan: `* { margin:0; padding:0; box-sizing:border-box }` asli di-scope
+   menjadi `.theme-sunset, .theme-sunset *`. Deklarasi body (font Karla,
+   overflow-x hidden) dan .sunset-container digabung ke .theme-sunset.
+   ============================================================================= */
+.theme-sunset,
+.theme-sunset * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.theme-sunset {
+  font-family: 'Karla', sans-serif;
+  overflow-x: hidden;
+
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    #ffd6e8 0%,
+    #ffb3d9 15%,
+    #ffabcc 30%,
+    #ff9ec4 45%,
+    #ff9fb8 60%,
+    #ffa5a0 75%,
+    #ffb88c 90%,
+    #ffc995 100%
+  );
+  animation: gradientShift-sunset 15s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientShift-sunset {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(5deg) brightness(1.05);
+  }
+}
+
+.theme-sunset .cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 100px;
+  opacity: 0.6;
+  animation: drift-sunset linear infinite;
+}
+
+.theme-sunset .cloud::before,
+.theme-sunset .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 100px;
+}
+
+.theme-sunset .cloud-1 {
+  width: 120px;
+  height: 40px;
+  top: 15%;
+  left: -150px;
+  animation: drift-sunset 45s linear infinite;
+}
+
+.theme-sunset .cloud-1::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+}
+
+.theme-sunset .cloud-1::after {
+  width: 60px;
+  height: 40px;
+  top: -20px;
+  right: 10px;
+}
+
+.theme-sunset .cloud-2 {
+  width: 100px;
+  height: 35px;
+  top: 25%;
+  left: -120px;
+  animation: drift-sunset 55s linear infinite;
+  animation-delay: -10s;
+}
+
+.theme-sunset .cloud-2::before {
+  width: 45px;
+  height: 45px;
+  top: -20px;
+  left: 15px;
+}
+
+.theme-sunset .cloud-2::after {
+  width: 50px;
+  height: 35px;
+  top: -18px;
+  right: 15px;
+}
+
+.theme-sunset .cloud-3 {
+  width: 140px;
+  height: 45px;
+  top: 40%;
+  left: -160px;
+  animation: drift-sunset 60s linear infinite;
+  animation-delay: -25s;
+}
+
+.theme-sunset .cloud-3::before {
+  width: 55px;
+  height: 55px;
+  top: -28px;
+  left: 20px;
+}
+
+.theme-sunset .cloud-3::after {
+  width: 65px;
+  height: 45px;
+  top: -22px;
+  right: 20px;
+}
+
+.theme-sunset .cloud-4 {
+  width: 90px;
+  height: 30px;
+  top: 60%;
+  left: -110px;
+  animation: drift-sunset 50s linear infinite;
+  animation-delay: -15s;
+}
+
+.theme-sunset .cloud-4::before {
+  width: 40px;
+  height: 40px;
+  top: -18px;
+  left: 12px;
+}
+
+.theme-sunset .cloud-4::after {
+  width: 45px;
+  height: 30px;
+  top: -15px;
+  right: 12px;
+}
+
+.theme-sunset .cloud-5 {
+  width: 110px;
+  height: 38px;
+  top: 75%;
+  left: -130px;
+  animation: drift-sunset 48s linear infinite;
+  animation-delay: -30s;
+}
+
+.theme-sunset .cloud-5::before {
+  width: 48px;
+  height: 48px;
+  top: -22px;
+  left: 18px;
+}
+
+.theme-sunset .cloud-5::after {
+  width: 52px;
+  height: 38px;
+  top: -19px;
+  right: 18px;
+}
+
+.theme-sunset .cloud-6 {
+  width: 95px;
+  height: 32px;
+  top: 10%;
+  left: -115px;
+  animation: drift-sunset 52s linear infinite;
+  animation-delay: -40s;
+}
+
+.theme-sunset .cloud-6::before {
+  width: 42px;
+  height: 42px;
+  top: -19px;
+  left: 14px;
+}
+
+.theme-sunset .cloud-6::after {
+  width: 46px;
+  height: 32px;
+  top: -16px;
+  right: 14px;
+}
+
+@keyframes drift-sunset {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+.theme-sunset .content-wrapper {
+  position: relative;
+  z-index: 10;
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-sunset .main-card {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 50px 40px;
+  box-shadow: 0 25px 60px rgba(255, 150, 180, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  animation: fadeSlideUp-sunset 1s ease-out;
+}
+
+@keyframes fadeSlideUp-sunset {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-sunset .header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeSlideUp-sunset 1s ease-out 0.2s backwards;
+}
+
+.theme-sunset .headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #e65a7f;
+  text-shadow: 0 4px 20px rgba(255, 120, 150, 0.4);
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.theme-sunset .subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 300;
+  color: #f1698e;
+  letter-spacing: 1px;
+}
+
+.theme-sunset .content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  animation: fadeSlideUp-sunset 1s ease-out 0.4s backwards;
+}
+
+.theme-sunset .letter-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(255, 150, 180, 0.2);
+}
+
+.theme-sunset .letter-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #e65a7f;
+  letter-spacing: 0.3px;
+}
+
+.theme-sunset .letter-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.theme-sunset .letter-text p {
+  margin-top: 20px;
+  text-align: justify;
+}
+
+.theme-sunset .letter-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.theme-sunset .letter-text p:last-child {
+  margin-bottom: 0;
+}
+
+.theme-sunset .cards-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.theme-sunset .aesthetic-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 35px rgba(255, 140, 170, 0.25);
+  transition: all 0.4s ease;
+  animation: fadeSlideUp-sunset 1s ease-out backwards;
+}
+
+.theme-sunset .aesthetic-card:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.theme-sunset .aesthetic-card:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.theme-sunset .aesthetic-card:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.theme-sunset .aesthetic-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 45px rgba(255, 140, 170, 0.4);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.theme-sunset .card-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  animation: float-sunset 3s ease-in-out infinite;
+}
+
+@keyframes float-sunset {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.theme-sunset .card-icon svg {
+  color: rgba(255, 100, 150, 0.9);
+  filter: drop-shadow(0 2px 8px rgba(255, 120, 160, 0.3));
+}
+
+.theme-sunset .card-content {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #e65a7f;
+  letter-spacing: 0.3px;
+}
+
+.theme-sunset .photo-image {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .theme-sunset .content-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .theme-sunset .headline {
+    font-size: 2.2rem;
+  }
+
+  .theme-sunset .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .theme-sunset .main-card {
+    padding: 40px 25px;
+  }
+
+  .theme-sunset .letter-section {
+    padding: 25px;
+  }
+
+  .theme-sunset .letter-text {
+    font-size: 1rem;
+  }
+
+  .theme-sunset .card-title {
+    font-size: 1.2rem;
+  }
+
+  .theme-sunset .cloud-1,
+  .theme-sunset .cloud-2,
+  .theme-sunset .cloud-3,
+  .theme-sunset .cloud-4,
+  .theme-sunset .cloud-5,
+  .theme-sunset .cloud-6 {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-sunset .headline {
+    font-size: 1.8rem;
+  }
+
+  .theme-sunset .subtitle {
+    font-size: 1rem;
+  }
+
+  .theme-sunset .main-card {
+    padding: 30px 20px;
+  }
+
+  .theme-sunset .content-wrapper {
+    padding: 30px 15px;
+  }
+
+  .theme-sunset .photo-image {
+    height: 320px;
+  }
+}
+
+/* =============================================================================
+   THEME: SKY
+   Sumber: project-arlon-done/styles.css
+   Catatan: class `.container` asli diganti nama menjadi root .theme-sky karena
+   `.container` bentrok dengan utility container milik Tailwind. Penggantian
+   nama tidak mengubah deklarasi apa pun. Deklarasi body ikut digabung ke root.
+   ============================================================================= */
+.theme-sky,
+.theme-sky * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.theme-sky {
+  scroll-behavior: smooth;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #374151;
+  text-align: justify;
+  font-size: 15px;
+
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #bae6fd, #e0f2fe, #f0f9ff);
+}
+
+.theme-sky .clouds-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.theme-sky .main-content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-sky .header {
+  padding: 2rem;
+  text-align: center;
+}
+
+.theme-sky .main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #1e40af;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.theme-sky .subtitle {
+  color: #2563eb;
+  font-size: 1rem;
+  font-weight: 400;
+  padding-inline: 20px;
+  font-style: italic;
+}
+
+.theme-sky .main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 3rem;
+}
+
+.theme-sky .content-wrapper {
+  max-width: 64rem;
+  width: 100%;
+}
+
+.theme-sky .content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.theme-sky .letter-section {
+  order: 1;
+}
+
+.theme-sky .glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px rgba(135, 206, 235, 0.1),
+    0 8px 32px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+}
+
+.theme-sky .glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px rgba(135, 206, 235, 0.15),
+    0 12px 40px rgba(255, 255, 255, 0.15);
+}
+
+.theme-sky .letter-content {
+  color: #374151;
+  line-height: 1.75;
+}
+
+.theme-sky .letter-content p {
+  margin-bottom: 1.5rem;
+}
+
+.theme-sky .greeting {
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  color: #2563eb;
+}
+
+.theme-sky .closing-greeting {
+  font-size: 1rem;
+  font-weight: 400;
+  padding-top: 1rem;
+  font-style: italic;
+  margin-bottom: 0 !important;
+}
+
+.theme-sky .signature {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.theme-sky .photo-section {
+  order: 2;
+}
+
+.theme-sky .photo-placeholder {
+  background: linear-gradient(135deg, #f0f9ff, #fce7f3);
+  border-radius: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-sky .photo-content {
+  text-align: center;
+  color: #2563eb;
+}
+
+.theme-sky .photo-heart-icon {
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+.theme-sky .photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.theme-sky .photo-text {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.theme-sky .photo-subtext {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.theme-sky .decorative-badge {
+  margin-block: 1.5rem;
+  text-align: center;
+}
+
+.theme-sky .badge-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(254, 240, 138, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  border: 1px solid rgba(254, 240, 138, 0.3);
+}
+
+.theme-sky .badge-text {
+  font-size: 0.875rem;
+  color: #a16207;
+  font-weight: 500;
+}
+
+.theme-sky .footer {
+  text-align: center;
+  padding-bottom: 2rem;
+  color: #3b82f6;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
+.theme-sky .cloud {
+  position: absolute;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0.3) 70%,
+    transparent 100%
+  );
+  border-radius: 50px;
+  opacity: 0.7;
+}
+
+.theme-sky .cloud::before,
+.theme-sky .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50px;
+}
+
+.theme-sky .cloud-1 {
+  width: 120px;
+  height: 40px;
+  top: 10%;
+  left: -10%;
+  animation: float-right-sky 60s infinite linear;
+}
+
+.theme-sky .cloud-1::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 10px;
+}
+
+.theme-sky .cloud-1::after {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  right: 10px;
+}
+
+.theme-sky .cloud-2 {
+  width: 80px;
+  height: 30px;
+  top: 20%;
+  right: -8%;
+  animation: float-left-sky 45s infinite linear;
+}
+
+.theme-sky .cloud-2::before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 15px;
+}
+
+.theme-sky .cloud-2::after {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  right: 15px;
+}
+
+.theme-sky .cloud-3 {
+  width: 60px;
+  height: 20px;
+  top: 35%;
+  left: -5%;
+  animation: float-right-sky 35s infinite linear;
+}
+
+.theme-sky .cloud-3::before {
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: 10px;
+}
+
+.theme-sky .cloud-3::after {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  right: 10px;
+}
+
+.theme-sky .cloud-4 {
+  width: 100px;
+  height: 35px;
+  bottom: 30%;
+  right: -10%;
+  animation: float-left-sky 55s infinite linear;
+}
+
+.theme-sky .cloud-4::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 20px;
+}
+
+.theme-sky .cloud-4::after {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  right: 20px;
+}
+
+.theme-sky .cloud-5 {
+  width: 70px;
+  height: 25px;
+  bottom: 15%;
+  left: -8%;
+  animation: float-right-sky 70s infinite linear;
+}
+
+.theme-sky .cloud-5::before {
+  width: 35px;
+  height: 35px;
+  top: -18px;
+  left: 12px;
+}
+
+.theme-sky .cloud-5::after {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  right: 12px;
+}
+
+@keyframes float-right-sky {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+@keyframes float-left-sky {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(calc(-100vw - 200px));
+  }
+}
+
+@keyframes pulse-sky {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 1024px) {
+  .theme-sky .main-title {
+    font-size: 3.75rem;
+  }
+
+  .theme-sky .content-grid {
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+
+  .theme-sky .letter-section {
+    order: 1;
+  }
+
+  .theme-sky .photo-section {
+    order: 2;
+  }
+
+  .theme-sky .glass-card {
+    padding: 2rem;
+  }
+
+  .theme-sky .cloud-1 {
+    animation-duration: 65s;
+  }
+  .theme-sky .cloud-2 {
+    animation-duration: 50s;
+  }
+  .theme-sky .cloud-3 {
+    animation-duration: 40s;
+  }
+  .theme-sky .cloud-4 {
+    animation-duration: 60s;
+  }
+  .theme-sky .cloud-5 {
+    animation-duration: 75s;
+  }
+}
+
+@media (max-width: 767px) {
+  .theme-sky .main-title {
+    font-size: 2rem;
+  }
+
+  .theme-sky .header-content {
+    flex-wrap: wrap;
+  }
+
+  .theme-sky .glass-card {
+    border-radius: 1.25rem;
+    margin: 0 0.25rem;
+  }
+
+  .theme-sky .cloud {
+    opacity: 0.5;
+  }
+
+  .theme-sky .cloud-1 {
+    animation-duration: 45s;
+  }
+  .theme-sky .cloud-2 {
+    animation-duration: 35s;
+  }
+  .theme-sky .cloud-3 {
+    animation-duration: 25s;
+  }
+  .theme-sky .cloud-4 {
+    animation-duration: 40s;
+  }
+  .theme-sky .cloud-5 {
+    animation-duration: 50s;
+  }
+}
+
+.theme-sky ::selection {
+  background-color: rgba(135, 206, 235, 0.3);
+  color: rgb(56, 75, 96);
+}
+
+.theme-sky *:focus {
+  outline: 2px solid rgba(135, 206, 235, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =============================================================================
+   THEME: LAKE
+   Sumber: project-kak-ail-done/src/index.css
+   ============================================================================= */
+.theme-lake {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+
+.theme-lake h1,
+.theme-lake h2,
+.theme-lake h3,
+.theme-lake h4,
+.theme-lake h5,
+.theme-lake h6,
+.theme-lake .font-serif {
+  font-family: 'Lora', serif;
+}
+
+.theme-lake .water-texture {
+  background-image: radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 60% 70%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 50%
+    );
+  animation: waterMove-lake 20s ease-in-out infinite;
+}
+
+.theme-lake .water-pattern {
+  background-image: radial-gradient(
+      circle at 30% 40%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 60%
+    );
+}
+
+.theme-lake .shimmer {
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%
+  );
+  animation: shimmerMove-lake 15s ease-in-out infinite;
+}
+
+@keyframes waterMove-lake {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-5%, 3%) scale(1.05);
+  }
+  50% {
+    transform: translate(5%, -3%) scale(0.95);
+  }
+  75% {
+    transform: translate(-3%, 5%) scale(1.02);
+  }
+}
+
+@keyframes shimmerMove-lake {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn-lake {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp-lake {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-lake .animate-fade-in {
+  animation: fadeIn-lake 1s ease-out forwards;
+}
+
+.theme-lake .animate-fade-in-late {
+  opacity: 0;
+  animation: fadeIn-lake 1s ease-out 0.8s forwards;
+}
+
+.theme-lake .animate-slide-up {
+  opacity: 0;
+  animation: slideUp-lake 1s ease-out 0.3s forwards;
+}
+
+.theme-lake .animate-slide-up-delay {
+  opacity: 0;
+  animation: slideUp-lake 1s ease-out 0.5s forwards;
+}
+
+.theme-lake .letter-card {
+  box-shadow: 0 10px 40px -10px rgba(26, 77, 77, 0.3),
+    0 0 80px -20px rgba(74, 124, 143, 0.2);
+}
+
+.theme-lake .image-card {
+  box-shadow: 0 8px 30px -8px rgba(26, 77, 77, 0.25);
+}
