@@ -1,13 +1,5 @@
 import { LetterContent, PLACEHOLDER_IMAGE } from '../../types';
 
-/**
- * Replika project-arlon-done/index.html.
- * Root <div class="container"> asli diganti menjadi .theme-sky karena
- * `.container` bentrok dengan utility Tailwind — deklarasinya sama persis.
- * Urutan DOM tetap: photo-section dulu, lalu letter-section (CSS order yang
- * menukar posisinya di desktop).
- * Tema ini tidak menampilkan caption foto di aslinya.
- */
 export default function SkyTheme({ content }: { content: LetterContent }) {
   return (
     <div className="theme-sky">

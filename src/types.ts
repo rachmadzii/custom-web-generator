@@ -29,14 +29,13 @@ export interface PublishedPage {
 export interface ThemeInfo {
   id: ThemeId;
   name: string;
-  source: string;
   description: string;
   previewGradient: string;
-  /** apakah tema aslinya punya blok kutipan */
+  /** apakah tema ini punya blok kutipan */
   hasQuote: boolean;
-  /** apakah tema aslinya punya footer */
+  /** apakah tema ini punya footer */
   hasFooter: boolean;
-  /** apakah tema aslinya menampilkan caption di kartu foto */
+  /** apakah tema ini menampilkan caption di kartu foto */
   hasCaption: boolean;
   darkPreview: boolean;
 }
@@ -45,7 +44,6 @@ export const THEMES: ThemeInfo[] = [
   {
     id: 'ocean',
     name: 'Ocean',
-    source: 'project-aca-done',
     description: 'Biru laut, ombak SVG, awan, dan sparkle',
     previewGradient: 'linear-gradient(to bottom, #bae6fd, #dbeafe, #fef3c7)',
     hasQuote: true,
@@ -56,7 +54,6 @@ export const THEMES: ThemeInfo[] = [
   {
     id: 'sunset',
     name: 'Sunset',
-    source: 'project-aren-done',
     description: 'Gradien pink-peach dengan awan melayang',
     previewGradient:
       'linear-gradient(to bottom, #ffd6e8, #ffabcc, #ff9fb8, #ffc995)',
@@ -68,7 +65,6 @@ export const THEMES: ThemeInfo[] = [
   {
     id: 'sky',
     name: 'Sky',
-    source: 'project-arlon-done',
     description: 'Langit biru cerah, awan dua arah, glass card',
     previewGradient: 'linear-gradient(to bottom, #bae6fd, #e0f2fe, #f0f9ff)',
     hasQuote: false,
@@ -79,7 +75,6 @@ export const THEMES: ThemeInfo[] = [
   {
     id: 'lake',
     name: 'Lake',
-    source: 'project-kak-ail-done',
     description: 'Danau hijau teal, tekstur air, shimmer',
     previewGradient: 'linear-gradient(to bottom, #1a4d4d, #2d6b7f, #4a7c8f)',
     hasQuote: true,

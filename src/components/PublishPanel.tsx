@@ -5,6 +5,7 @@ import {
   Copy,
   ExternalLink,
   Globe,
+  Link2,
   Loader2,
   Trash2,
 } from 'lucide-react';
@@ -16,6 +17,7 @@ import {
   validateSlug,
 } from '../types';
 import { deletePage, getPage, listPages, savePage } from '../db';
+import { encodePageData } from '../sharing';
 
 interface Props {
   theme: ThemeId;
@@ -82,6 +84,16 @@ export default function PublishPanel({ theme, content, onNavigate }: Props) {
     setStatus(`Halaman /${target} dihapus.`);
   };
 
+  const generateShareLink = () => {
+    const encoded = encodePageData(theme, content);
+    return `${origin}/s#${encoded}`;
+  };
+
+  const copyShareLink = async () => {
+    const link = generateShareLink();
+    await copy(link);
+  };
+
   return (
     <section className="panel">
       <h3 className="panel-title">
@@ -89,8 +101,44 @@ export default function PublishPanel({ theme, content, onNavigate }: Props) {
         Publish
       </h3>
 
+      {/* ------- Public share link ------- */}
+      <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50/50 p-3.5">
+        <div className="flex items-center gap-2 mb-2">
+          <Link2 size={14} className="text-emerald-600" />
+          <span className="text-xs font-semibold text-emerald-800">
+            Bagikan ke siapa saja
+          </span>
+        </div>
+        <p className="text-[11px] leading-snug text-emerald-700 mb-2.5">
+          Link ini bisa dibuka oleh siapa pun di device mana pun — tidak perlu
+          login atau berada di browser yang sama.
+        </p>
+        <button
+          type="button"
+          className="btn w-full justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700"
+          onClick={copyShareLink}
+        >
+          {copied && copied.includes('/s#') ? (
+            <>
+              <Check size={15} className="text-emerald-200" />
+              Link tersalin!
+            </>
+          ) : (
+            <>
+              <Copy size={15} />
+              Salin link publik
+            </>
+          )}
+        </button>
+        <p className="mt-2 text-[10px] text-emerald-600/70">
+          Catatan: gambar yang di-upload tidak termasuk di link karena ukurannya
+          terlalu besar. Gunakan Export HTML kalau mau kirim versi lengkap.
+        </p>
+      </div>
+
+      {/* ------- Local publish ------- */}
       <label className="field-label" htmlFor="f-slug">
-        Alamat halaman
+        Simpan di browser ini
       </label>
       <div
         className={`flex items-center gap-0 overflow-hidden rounded-xl border bg-white transition
@@ -142,7 +190,7 @@ export default function PublishPanel({ theme, content, onNavigate }: Props) {
           ) : (
             <Globe size={15} />
           )}
-          Publish halaman
+          Simpan lokal
         </button>
         <button
           type="button"
@@ -164,7 +212,7 @@ export default function PublishPanel({ theme, content, onNavigate }: Props) {
       {pages.length > 0 && (
         <div className="mt-4 border-t border-slate-100 pt-3.5">
           <span className="field-label">
-            Sudah dipublish ({pages.length})
+            Tersimpan lokal ({pages.length})
           </span>
           <ul className="space-y-1.5">
             {pages.map((page) => (
@@ -211,10 +259,8 @@ export default function PublishPanel({ theme, content, onNavigate }: Props) {
 
       <p className="mt-3.5 flex items-start gap-1.5 border-t border-slate-100 pt-3 text-[11px] leading-snug text-slate-400">
         <AlertTriangle size={12} className="mt-px shrink-0" />
-        Halaman disimpan di IndexedDB browser ini. Tautannya bisa dibuka kapan
-        saja di browser yang sama, tapi belum bisa diakses orang lain atau dari
-        device lain — itu butuh backend. Untuk dikirim ke orang, pakai tombol
-        Export HTML.
+        Penyimpanan lokal hanya bisa dibuka di browser ini. Untuk berbagi ke
+        orang lain, gunakan tombol "Salin link publik" di atas atau Export HTML.
       </p>
     </section>
   );

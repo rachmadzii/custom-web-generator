@@ -3,11 +3,6 @@ import { Leaf, Waves, Sparkles, Heart } from 'lucide-react';
 import { LetterContent, PLACEHOLDER_IMAGE } from '../../types';
 import { buildBlocks } from './blocks';
 
-/**
- * Replika project-kak-ail-done/src/App.tsx.
- * Warna pil caption (gray / teal / green) dan rasio gambar (3:4, 3:4, 1:1)
- * berputar mengikuti pola tiga kartu di aslinya.
- */
 const CAPTION_BG = ['bg-gray-100/80', 'bg-teal-100/80', 'bg-green-100/80'];
 const ASPECT = ['aspect-[3/4]', 'aspect-[3/4]', 'aspect-square'];
 

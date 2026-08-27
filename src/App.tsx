@@ -1,37 +1,50 @@
 import { useCallback, useEffect, useState } from 'react';
 import Builder from './pages/Builder';
 import PublishedPageView from './pages/PublishedPage';
+import SharedPageView from './pages/SharedPage';
 import { slugify } from './types';
 
 /**
  * Router minimal berbasis History API.
  *   /            -> builder
- *   /<slug>      -> halaman yang sudah dipublish
- *
- * Vite dev server memakai appType 'spa' secara default, jadi request ke
- * /untuk-ama tetap dilayani index.html dan router ini yang menanganinya.
- * Untuk hasil `npm run build`, host statis perlu rewrite semua path ke
- * index.html (lihat public/_redirects untuk Netlify).
+ *   /s#<data>    -> halaman publik (shared via encoded URL)
+ *   /<slug>      -> halaman dari IndexedDB lokal
  */
 export default function App() {
   const [path, setPath] = useState(() => window.location.pathname);
+  const [hash, setHash] = useState(() => window.location.hash);
 
   useEffect(() => {
-    const onPop = () => setPath(window.location.pathname);
+    const onPop = () => {
+      setPath(window.location.pathname);
+      setHash(window.location.hash);
+    };
     window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
+    window.addEventListener('hashchange', onPop);
+    return () => {
+      window.removeEventListener('popstate', onPop);
+      window.removeEventListener('hashchange', onPop);
+    };
   }, []);
 
   const navigate = useCallback((to: string) => {
     window.history.pushState({}, '', to);
-    setPath(to);
+    setPath(window.location.pathname);
+    setHash(window.location.hash);
     window.scrollTo(0, 0);
   }, []);
 
-  const slug = slugify(decodeURIComponent(path.replace(/^\/+|\/+$/g, '')));
+  const cleanPath = decodeURIComponent(path.replace(/^\/+|\/+$/g, ''));
+
+  // Route: /s#<encoded-data> → shared public page
+  if (cleanPath === 's' && hash.length > 1) {
+    return <SharedPageView encodedData={hash.slice(1)} onNavigate={navigate} />;
+  }
+
+  const slug = slugify(cleanPath);
 
   if (!slug) {
-    document.title = 'Custom Web Generator';
+    document.title = 'Dear Page — Custom Webpage Generator';
     return <Builder onNavigate={navigate} />;
   }
 

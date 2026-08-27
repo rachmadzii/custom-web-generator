@@ -1,25 +1,13 @@
 /* =============================================================================
-   CSS KEEMPAT TEMA — SALINAN VERBATIM DARI PROJECT ASLINYA
+   CSS KEEMPAT TEMA
    -----------------------------------------------------------------------------
-   Aturan yang saya pegang di file ini:
-   1. Tidak ada satu pun nilai deklarasi yang diubah, ditambah, atau dihapus.
-   2. Tidak ada media query baru. Breakpoint persis seperti aslinya.
-   3. Yang berubah HANYA dua hal, murni supaya 4 stylesheet bisa hidup
-      berdampingan dalam satu aplikasi:
-        a. Setiap selector diberi prefix .theme-<nama> (scoping).
-           Tanpa ini, .cloud / .photo-image / .letter-section / .subtitle
-           saling menimpa antar tema.
-        b. Nama @keyframes diberi suffix -<nama tema>.
-           Tanpa ini, `float` milik Ocean dan `float` milik Sunset bertabrakan
-           (keyframes bersifat global, yang terakhir menang).
-      Keduanya tidak mengubah tampilan sama sekali.
-   4. Deklarasi `body` dan wrapper terluar asli digabung ke selector
-      .theme-<nama> karena root <div> tema menggantikan peran <body>.
+   Setiap selector di-prefix dengan .theme-<nama> supaya empat stylesheet
+   bisa hidup berdampingan. Nama @keyframes diberi suffix per tema agar
+   tidak saling menimpa.
    ============================================================================= */
 
 /* =============================================================================
    THEME: OCEAN
-   Sumber: project-aca-done/src/index.css
    ============================================================================= */
 .theme-ocean {
   font-family: 'Poppins', sans-serif;
@@ -207,10 +195,6 @@
 
 /* =============================================================================
    THEME: SUNSET
-   Sumber: project-aren-done/src/sunset.css
-   Catatan: `* { margin:0; padding:0; box-sizing:border-box }` asli di-scope
-   menjadi `.theme-sunset, .theme-sunset *`. Deklarasi body (font Karla,
-   overflow-x hidden) dan .sunset-container digabung ke .theme-sunset.
    ============================================================================= */
 .theme-sunset,
 .theme-sunset * {
@@ -656,10 +640,6 @@
 
 /* =============================================================================
    THEME: SKY
-   Sumber: project-arlon-done/styles.css
-   Catatan: class `.container` asli diganti nama menjadi root .theme-sky karena
-   `.container` bentrok dengan utility container milik Tailwind. Penggantian
-   nama tidak mengubah deklarasi apa pun. Deklarasi body ikut digabung ke root.
    ============================================================================= */
 .theme-sky,
 .theme-sky * {
@@ -1111,7 +1091,6 @@
 
 /* =============================================================================
    THEME: LAKE
-   Sumber: project-kak-ail-done/src/index.css
    ============================================================================= */
 .theme-lake {
   font-family: 'Poppins', sans-serif;

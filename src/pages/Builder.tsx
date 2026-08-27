@@ -123,7 +123,7 @@ export default function Builder({ onNavigate }: Props) {
         <div className="mx-auto flex max-w-[1800px] items-center gap-3 px-3 py-3 sm:px-5 lg:px-6">
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-sm font-semibold text-slate-800 sm:text-base">
-              Custom Web Generator
+              Dear Page
             </h1>
             <p className="hidden truncate text-xs text-slate-500 sm:block">
               Pilih tema, isi kontennya, lalu publish jadi halaman sendiri
@@ -185,13 +185,6 @@ export default function Builder({ onNavigate }: Props) {
                   Tema
                 </h3>
                 <ThemeSelector selected={themeId} onSelect={setThemeId} />
-                <p className="mt-3 text-[11px] leading-snug text-slate-400">
-                  Diambil dari{' '}
-                  <span className="font-medium text-slate-500">
-                    {theme.source}
-                  </span>
-                  . CSS-nya disalin apa adanya — tidak ada style tambahan.
-                </p>
               </section>
 
               <ContentEditor
@@ -256,7 +249,7 @@ export default function Builder({ onNavigate }: Props) {
 
               <p className="mt-2 text-center text-[11px] text-slate-400">
                 Preview dirender di iframe pada lebar {active.width}px, jadi
-                media query asli tema ikut aktif.
+                layout responsif tema ikut aktif.
               </p>
             </div>
           </div>

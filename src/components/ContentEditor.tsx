@@ -67,9 +67,9 @@ export default function ContentEditor({ content, theme, onChange }: Props) {
             {(theme.id === 'sunset' || theme.id === 'sky') && (
               <p className="mt-1.5 flex items-start gap-1.5 text-[11px] leading-snug text-slate-400">
                 <Info size={12} className="mt-px shrink-0" />
-                Tema {theme.name} punya emoji dekoratif di atas judul
-                {theme.id === 'sunset' ? ' (💌)' : ' (✨⛅)'} — itu bagian dari
-                desain aslinya.
+                Tema {theme.name} sudah menyertakan emoji dekoratif di atas judul
+                {theme.id === 'sunset' ? ' (💌)' : ' (✨⛅)'} sebagai bagian dari
+                layoutnya, jadi kamu tidak perlu menambahkannya sendiri.
               </p>
             )}
           </div>
@@ -191,16 +191,16 @@ export default function ContentEditor({ content, theme, onChange }: Props) {
                 placeholder="Kosongkan kalau tidak ingin menampilkan kutipan"
               />
               <p className="mt-1.5 text-[11px] text-slate-400">
-                Kotak kutipan bergaris tepi — ada di desain asli tema{' '}
+                Kutipan akan tampil dalam kotak bergaris tepi di tema{' '}
                 {theme.name}.
               </p>
             </div>
           ) : (
             <div className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-[11px] leading-snug text-amber-700">
               <Info size={13} className="mt-0.5 shrink-0" />
-              Tema {theme.name} tidak punya blok kutipan di desain aslinya, jadi
-              kolom itu disembunyikan. Ganti ke Ocean atau Lake untuk
-              memakainya.
+              Tema {theme.name} tidak mendukung blok kutipan, jadi kolom ini
+              disembunyikan. Pilih tema Ocean atau Lake kalau kamu mau
+              menggunakannya.
             </div>
           )}
 
@@ -238,8 +238,9 @@ export default function ContentEditor({ content, theme, onChange }: Props) {
           {!theme.hasCaption && (
             <div className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-[11px] leading-snug text-amber-700">
               <Info size={13} className="mt-0.5 shrink-0" />
-              Tema {theme.name} tidak menampilkan caption foto di desain
-              aslinya. Caption tetap tersimpan dan dipakai sebagai teks alt.
+              Tema {theme.name} tidak menampilkan caption foto secara visual.
+              Caption tetap tersimpan dan dipakai sebagai teks alt untuk
+              aksesibilitas.
             </div>
           )}
 
@@ -351,8 +352,8 @@ export default function ContentEditor({ content, theme, onChange }: Props) {
         ) : (
           <div className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-[11px] leading-snug text-amber-700">
             <Info size={13} className="mt-0.5 shrink-0" />
-            Tema Sunset tidak punya footer di desain aslinya, jadi teks footer
-            tidak dirender. Nilainya tetap tersimpan kalau kamu ganti tema.
+            Tema Sunset tidak menampilkan footer, jadi teks ini tidak akan
+            muncul. Nilainya tetap tersimpan kalau kamu ganti ke tema lain.
           </div>
         )}
       </section>

@@ -39,7 +39,8 @@ export function buildStandaloneHtml(title: string, bodyHtml: string): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(title)}</title>
+<title>${escapeHtml(title)} — Dear Page</title>
+<meta name="generator" content="Dear Page">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONTS_HREF}">

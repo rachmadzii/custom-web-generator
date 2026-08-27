@@ -3,11 +3,6 @@ import { Shell, Sparkles, Heart } from 'lucide-react';
 import { LetterContent, PLACEHOLDER_IMAGE } from '../../types';
 import { buildBlocks } from './blocks';
 
-/**
- * Replika project-aca-done/src/App.tsx.
- * Struktur elemen dan className identik dengan aslinya; hanya teks & gambar
- * yang diganti menjadi props.
- */
 export default function OceanTheme({ content }: { content: LetterContent }) {
   const dividers = [
     <Shell className="text-coral-400" size={24} />,

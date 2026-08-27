@@ -1,12 +1,6 @@
 import { Camera } from 'lucide-react';
 import { LetterContent, PLACEHOLDER_IMAGE } from '../../types';
 
-/**
- * Replika project-aren-done/src/App.tsx.
- * Root <div className="sunset-container"> asli digabung ke .theme-sunset
- * (deklarasinya sama, lihat styles/themes.css).
- * Tema ini tidak punya footer di aslinya, jadi footerText tidak dirender.
- */
 export default function SunsetTheme({ content }: { content: LetterContent }) {
   return (
     <div className="theme-sunset">
